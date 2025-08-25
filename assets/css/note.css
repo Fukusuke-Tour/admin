@@ -1,0 +1,230 @@
+
+
+body {
+  font-family: "Poppins", sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  color: #888;
+  overflow-x: hidden;
+  font-size: 14px;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-toggler:focus,
+a:focus,
+input:focus,
+textarea:focus,
+button:focus,
+.btn:focus,
+.btn.focus,
+.btn:not(:disabled):not(.disabled).active,
+.btn:not(:disabled):not(.disabled):active {
+  text-decoration: none;
+  outline: none;
+}
+
+span,
+a {
+  display: inline-block;
+  text-decoration: none;
+  transition: all 0.4s ease;
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+}
+
+audio,
+canvas,
+iframe,
+img,
+svg,
+video {
+  vertical-align: middle;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
+  margin: 0px;
+  color: #081828;
+}
+
+h1 a,
+h2 a,
+h3 a,
+h4 a,
+h5 a,
+h6 a {
+  color: inherit;
+}
+
+h1 {
+  font-size: 50px;
+}
+
+h2 {
+  font-size: 40px;
+}
+
+h3 {
+  font-size: 30px;
+}
+
+h4 {
+  font-size: 25px;
+}
+
+h5 {
+  font-size: 20px;
+}
+
+h6 {
+  font-size: 16px;
+}
+
+ul,
+ol {
+  margin: 0px;
+  padding: 0px;
+  list-style-type: none;
+}.summernote-preview {
+  background: #F4F7FA;
+}
+
+.summernote-preview .post-details {
+  padding: 40px;
+  background-color: #fff;
+  margin: 0;
+}
+
+.summernote-preview .post-details .detail-inner {
+  background-color: #fff;
+  padding: 0;
+}
+
+.summernote-preview .post-details .post-thumbnils {
+  margin-bottom: 30px;
+}
+
+.summernote-preview .post-details .post-title {
+  font-weight: 700;
+  margin-top: 8px;
+  line-height: 38px;
+}
+
+.summernote-preview .post-details .post-title a {
+  font-size: 27px;
+  font-weight: 700;
+}
+
+.summernote-preview .post-details .post-title a:hover {
+  color: #49cdf5;
+}
+
+.summernote-preview .post-details .post-meta li {
+  font-weight: 500;
+  font-size: 15px;
+  margin-right: 25px;
+}
+
+.summernote-preview .post-details .post-meta li a i {
+  font-weight: 400;
+  margin-right: 3px;
+}
+
+.summernote-preview .post-details .post-meta li a:hover {
+  color: #49cdf5;
+}
+
+.summernote-preview .post-details p {
+  font-size: 14px;
+  margin: 30px 0;
+  line-height: 24px;
+}
+
+.summernote-preview .post-details p:last-child {
+  margin-bottom: 0;
+}
+
+.summernote-preview .post-details h3 {
+  font-size: 22px;
+  margin-bottom: 20px;
+  font-weight: 600;
+  line-height: 28px;
+}
+
+.summernote-preview .post-details .list li {
+  display: block;
+  margin-bottom: 15px;
+  color: #888;
+}
+
+.summernote-preview .post-details .list li:last-child {
+  margin-bottom: 0;
+}
+
+.summernote-preview .post-details .list li i {
+  display: inline-block;
+  color: #49cdf5;
+  margin-right: 10px;
+  position: relative;
+  top: 1px;
+}
+
+.summernote-preview .post-details blockquote {
+  position: relative;
+  color: #fff;
+  font-weight: 400;
+  clear: both;
+  z-index: 1;
+  margin: 40px 0;
+  text-align: left;
+  padding: 40px;
+  background-color: #49cdf5;
+  border: none;
+  border-radius: 0;
+  overflow: hidden;
+}
+
+.summernote-preview .post-details blockquote .icon i {
+  font-size: 30px;
+  color: #fff;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.summernote-preview .post-details blockquote h4 {
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 24px;
+  color: #fff;
+}
+
+.summernote-preview .post-details blockquote span {
+  font-size: 13px;
+  display: block;
+  margin-top: 20px;
+  color: #fff;
+}
+
+.summernote-preview .post-thumbnils {
+  position: relative;
+  border-radius: 0;
+  overflow: hidden;
+}
+
+.summernote-preview .post-thumbnils img {
+  width: 100%;
+}

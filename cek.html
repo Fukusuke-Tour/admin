@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Upload Gambar ke Supabase</title>
+</head>
+<body>
+  <h2>Upload Gambar (.jpg) ke Supabase</h2>
+
+  <input type="file" id="fileInput" accept="image/jpeg">
+  <button onclick="uploadImage()">Upload</button>
+
+  <p id="result"></p>
+
+  <!-- Supabase JS CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script>
+    // Ganti dengan info proyekmu
+
+    const SUPABASE_URL = 'https://oildpbwnyayfdshnjujp.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9pbGRwYndueWF5ZmRzaG5qdWpwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQwNTAzOTgsImV4cCI6MjA2OTYyNjM5OH0.dPPvWAoRhn2AZzYIDgWRubg5YE0xDnNSFTL4zmbPX1w';
+
+    // Gunakan nama variabel berbeda agar tidak konflik
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    async function uploadImage() {
+      const file = document.getElementById('fileInput').files[0];
+      if (!file) {
+        alert('Pilih file terlebih dahulu!');
+        return;
+      }
+
+      const fileName = `public/${Date.now()}_${file.name}`;
+
+      const { data, error } = await supabaseClient.storage
+        .from('headerimg')
+        .upload(fileName, file);
+
+      if (error) {
+        console.error(error);
+        document.getElementById('result').textContent = '❌ Gagal upload: ' + error.message;
+      } else {
+        document.getElementById('result').innerHTML = `
+          ✅ Berhasil upload! <br>
+          <img src="${SUPABASE_URL}/storage/v1/object/public/headerimg/${fileName}" width="200">
+        `;
+      }
+    }
+  </script>
+</body>
+</html>

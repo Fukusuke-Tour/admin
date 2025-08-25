@@ -1,0 +1,319 @@
+﻿<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Blog Single Sidebar - EduGrids Education & Online Course HTML Template.</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.svg">
+    <!-- Place favicon.ico in the root directory -->
+
+    <!-- Web Font -->
+    <link href="../../css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    <!-- ========================= CSS here ========================= -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/LineIcons.2.0.css">
+    <link rel="stylesheet" href="assets/css/animate.css">
+    <link rel="stylesheet" href="assets/css/tiny-slider.css">
+    <link rel="stylesheet" href="assets/css/glightbox.min.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-lite.min.css" rel="stylesheet">
+
+
+  <!-- Cropper.js CSS -->
+<link  href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet" />
+
+<!-- Cropper.js JS -->
+
+
+
+</head>
+
+<body>
+    <!--[if lte IE 9]>
+      <p class="browserupgrade">
+        You are using an <strong>outdated</strong> browser. Please
+        <a href="https://browsehappy.com/">upgrade your browser</a> to improve
+        your experience and security.
+      </p>
+    <![endif]-->
+
+    <!-- Preloader -->
+    <header class="header navbar-area">
+        <div id="navbar-container"></div>
+    </header>
+
+    <section class="login section">
+        <div class="container">
+            <div class="row">
+                <div class="">
+                    <div class="form-head">
+                        <h4 class="title">Input Page Baru</h4>
+                        <form action="#!" method="post" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label>Judul Page Informasi</label>
+                                <input class="margin-5px-bottom" type="text" id="judulPage" placeholder="Judul Page">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Header Photo</label>
+                                <input type="file" id="inputImage" accept="image/*">
+                                <input type="hidden" id="croppedImageData" name="croppedImageData">
+
+                                <div id="cropContainer" style="margin-top: 15px; display: none;">
+                                    <img id="previewImage" style="max-width: 100%; max-height: 400px;" />
+                                    <br>
+                                    <button type="button" class="btn btn-sm btn-primary mt-2" id="cropBtn">Crop Sekarang</button>
+                                </div>
+
+                                <div id="croppedPreview" style="margin-top: 15px; display: none;">
+                                    <label>Hasil Crop:</label>
+                                    <img id="croppedImagePreview" style="max-width: 100%;" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Link</label>
+                                <input class="margin-5px-bottom" type="text" id="linkPage" placeholder="Link">
+                            </div>
+                            
+                            <div class="form-group">
+                                 <iframe id="summernoteIframe" src="note-frame.html" width="100%" height="500" frameborder="0"></iframe>
+                            </div>
+
+                            <div class="button">
+                                <button type="submit" class="btn">Tambahkan Page</button>
+                            </div>
+                        </form>
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================= scroll-top ========================= -->
+    <a href="#" class="scroll-top btn-hover">
+        <i class="lni lni-chevron-up"></i>
+    </a>
+
+    <!-- ========================= JS here ========================= -->
+     <script src="assets/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="assets/js/count-up.min.js"></script>
+    <script src="assets/js/wow.min.js"></script>
+    <script src="assets/js/tiny-slider.js"></script>
+    <script src="assets/js/glightbox.min.js"></script>
+    <script src="assets/js/main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-lite.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+    <!-- Supabase Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+<!-- Inisialisasi Supabase -->
+    <script>
+        // Fungsi untuk memuat file HTML ke dalam elemen
+        function loadHTML(elementId, filePath) {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', filePath, true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    document.getElementById(elementId).innerHTML = xhr.responseText;
+
+                    // Jalankan highlight hanya setelah navbar dimuat
+                    if (filePath.includes('navbar.html')) {
+                        highlightActiveLink();
+                    }
+                }
+            };
+            xhr.send();
+        }
+
+        // Fungsi untuk menandai link navbar yang aktif
+        function highlightActiveLink() {
+            const pageCode = document.body.getAttribute('data-page');
+            if (!pageCode) return;
+
+            const navLinks = document.querySelectorAll('#nav a');
+
+            navLinks.forEach(link => {
+                const target = link.getAttribute('data-target');
+                if (target === pageCode) {
+                    link.classList.add('active');
+                    const parentItem = link.closest('.nav-item');
+                    if (parentItem) parentItem.classList.add('active-parent');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        }
+
+        // Load awal
+        loadHTML('navbar-container', 'menu/navbar.html');
+        loadHTML('toolbar-container', 'menu/toolbar.html');
+        loadHTML('footer-container', 'menu/footer.html');
+
+        // Fungsi memuat konten ke dalam #content-container
+        function loadContent(filePath) {
+            loadHTML('content-container', filePath);
+        }
+    </script>
+
+<!-- Upload & Insert Logic -->
+<script>
+  // Ganti dengan info proyekmu
+  const SUPABASE_URL = 'https://oildpbwnyayfdshnjujp.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9pbGRwYndueWF5ZmRzaG5qdWpwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQwNTAzOTgsImV4cCI6MjA2OTYyNjM5OH0.dPPvWAoRhn2AZzYIDgWRubg5YE0xDnNSFTL4zmbPX1w';
+
+  const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  document.querySelector("form").addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const judul = document.getElementById("judulPage").value.trim();
+    const link = document.getElementById("linkPage").value.trim();
+    const croppedImage = document.getElementById("croppedImageData").value;
+
+    // Ambil isi Summernote dari iframe
+    const iframe = document.getElementById("summernoteIframe");
+    const konten = iframe.contentWindow.document.getElementById("summernote").value;
+
+
+    // Upload gambar ke bucket 'headerimg'
+    const fileName = `public/header-${Date.now()}.jpg`;
+    const imageBlob = await (await fetch(croppedImage)).blob();
+
+    const { data: uploadData, error: uploadError } = await supabaseClient
+      .storage
+      .from('headerimg')
+      .upload(fileName, imageBlob, {
+        contentType: 'image/jpeg',
+        upsert: true
+      });
+
+    if (uploadError) {
+      alert("❌ Upload gambar gagal: " + uploadError.message);
+      return;
+    }
+
+    const imagePath = uploadData.path;
+
+    // Insert ke tabel 'tour2025'
+    const { data, error } = await supabaseClient
+      .from('tour2025')
+      .insert([{
+        judul,
+        header_img: imagePath,
+        link,
+        konten,
+        status: 'publish',
+        tanggal: new Date().toISOString()
+      }]);
+
+    if (error) {
+      alert("❌ Gagal menyimpan data: " + error.message);
+    } else {
+      alert("✅ Data berhasil disimpan!");
+    }
+  });
+</script>
+
+
+
+
+
+
+<!-- AdminLTE for demo purposes -->
+
+
+<script>
+  document.getElementById("summernoteIframe").addEventListener("load", function () {
+    const iframe = this;
+    const iframeWindow = iframe.contentWindow;
+
+    // Beri jeda agar Summernote selesai inisialisasi
+    setTimeout(function () {
+      try {
+        if (iframeWindow.$ && iframeWindow.$('#summernote').length) {
+          iframeWindow.$('#summernote').summernote('focus');
+        } else {
+          console.warn("Summernote belum siap atau tidak ditemukan di dalam iframe.");
+        }
+      } catch (e) {
+        console.error("Tidak bisa mengakses konten iframe:", e);
+      }
+    }, 500); // 500ms = setengah detik
+  });
+</script>
+
+
+<script>
+  $(function () {
+    // Summernote
+    $('#summernote').summernote({
+  height: 300, // tinggi awal
+  callbacks: {
+    onInit: function () {
+      // Tambahkan batas tinggi & scroll
+      $('.note-editable').css({
+        'max-height': '500px',
+        'overflow-y': 'auto'
+      });
+    }
+  }
+});
+
+  })
+</script>
+<script>
+  let cropper;
+
+  document.getElementById('inputImage').addEventListener('change', function (e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function (event) {
+      const img = document.getElementById('previewImage');
+      img.src = event.target.result;
+      document.getElementById('cropContainer').style.display = 'block';
+
+      if (cropper) cropper.destroy();
+
+      cropper = new Cropper(img, {
+        aspectRatio: 16 / 9,
+        viewMode: 1,
+        autoCropArea: 1
+      });
+    };
+    reader.readAsDataURL(file);
+  });
+
+  document.getElementById('cropBtn').addEventListener('click', function () {
+    if (cropper) {
+      const canvas = cropper.getCroppedCanvas({
+        width: 1600,
+        height: 900,
+        imageSmoothingEnabled: true,
+        imageSmoothingQuality: 'high'
+      });
+
+      const croppedDataURL = canvas.toDataURL('image/jpeg', 0.95); // kualitas tinggi
+      document.getElementById('croppedImageData').value = croppedDataURL;
+
+      // Tampilkan hasil crop di preview
+      document.getElementById('croppedImagePreview').src = croppedDataURL;
+      document.getElementById('croppedPreview').style.display = 'block';
+      document.getElementById('cropContainer').style.display = 'none';
+    }
+  });
+</script>
+
+
+
+</body>
+
+</html>

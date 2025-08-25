@@ -1,0 +1,307 @@
+﻿<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Course Details - EduGrids Education & Online Course HTML Template.</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.svg">
+    <!-- Place favicon.ico in the root directory -->
+
+    <!-- Web Font -->
+    <link href="../../css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    <!-- ========================= CSS here ========================= -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/LineIcons.2.0.css">
+    <link rel="stylesheet" href="assets/css/animate.css">
+    <link rel="stylesheet" href="assets/css/tiny-slider.css">
+    <link rel="stylesheet" href="assets/css/glightbox.min.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+
+</head>
+
+<body>
+    <!--[if lte IE 9]>
+      <p class="browserupgrade">
+        You are using an <strong>outdated</strong> browser. Please
+        <a href="https://browsehappy.com/">upgrade your browser</a> to improve
+        your experience and security.
+      </p>
+    <![endif]-->
+
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-icon">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+    <!-- /End Preloader -->
+
+    <!-- Start Header Area -->
+    <header class="header navbar-area">
+        <div id="navbar-container"></div>
+    </header>
+    <!-- End Header Area -->
+
+
+
+    <!-- Course Details Section Start -->
+    <div class="course-details section">
+        <div class="container">
+            <div class="row">
+                <!-- Course Details Wrapper Start -->
+                <div class="col-lg-8 col-12">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link  active" id="overview-tab" data-bs-toggle="tab" data-bs-target="#overview" type="button" role="tab" aria-controls="overview" aria-selected="true">Daftar Page</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link " id="curriculum-tab" data-bs-toggle="tab" data-bs-target="#curriculum" type="button" role="tab" aria-controls="curriculum" aria-selected="false">Publis Page</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane  show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
+                            <div class="course-curriculum">
+                                <ul class="curriculum-sections">
+                                    <li class="single-curriculum-section">
+                                        <div class="section-header">
+                                            <div class="section-left">
+
+                                                <h5 class="title">Data Page</h5>
+
+                                            </div>
+                                        </div>
+                                        <ul class="section-content" id="sectionContent"></ul>
+
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade " id="curriculum" role="tabpanel" aria-labelledby="curriculum-tab">
+                            <div class="course-curriculum">
+                                <ul class="curriculum-sections">
+                                    <li class="single-curriculum-section">
+                                        <div class="section-header">
+                                            <div class="section-left">
+
+                                                <h5 class="title">Setting Publish</h5>
+
+                                            </div>
+                                        </div>
+                                        <ul class="section-content" id="setting-content"></ul>
+
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Course Details Wrapper -->
+                <!-- Start Course Sidebar -->
+
+                <!-- End Course Sidebar -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================= JS here ========================= -->
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/count-up.min.js"></script>
+    <script src="assets/js/wow.min.js"></script>
+    <script src="assets/js/tiny-slider.js"></script>
+    <script src="assets/js/glightbox.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script>
+        const SUPABASE_URL = 'https://oildpbwnyayfdshnjujp.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9pbGRwYndueWF5ZmRzaG5qdWpwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQwNTAzOTgsImV4cCI6MjA2OTYyNjM5OH0.dPPvWAoRhn2AZzYIDgWRubg5YE0xDnNSFTL4zmbPX1w';
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+
+        // ===================== TAMPILKAN DATA UTAMA ===================== //
+        async function loadData() {
+            const section = document.getElementById('sectionContent');
+            const { data, error } = await supabaseClient
+            .from('tour2025')
+            .select('*');
+
+            if (error) {
+            console.error('Gagal memuat data:', error);
+            return;
+            }
+
+            section.innerHTML = '';
+            data.forEach(item => {
+            const li = document.createElement('li');
+            li.className = 'course-item';
+            li.innerHTML = `
+                <div class="section-item-link lesson">
+                <span class="item-name">${item.judul || 'Tanpa Judul'}</span>
+                <div class="course-item-meta">
+                    <button class="item-meta count-questions btn" onclick="window.location.href='editpage.html?id=${item.id}'">Edit</button>
+                    <button class="item-meta duration btn" onclick="hapusData('${item.id}')">Hapus</button>
+                </div>
+                </div>
+            `;
+            section.appendChild(li);
+            });
+        }
+
+        async function hapusData(id) {
+            if (confirm('Yakin ingin menghapus data ini?')) {
+            const { error } = await supabaseClient
+                .from('tour2025')
+                .delete()
+                .eq('id', id);
+            if (error) {
+                alert('Gagal menghapus');
+                console.error(error);
+            } else {
+                loadData(); // Refresh
+            }
+            }
+        }
+
+        window.hapusData = hapusData;
+
+        // ===================== TAMPILKAN SETTING PUBLISH ===================== //
+  async function loadSettingContent() {
+    const container = document.getElementById('setting-content');
+
+    const { data, error } = await supabaseClient
+      .from('tour2025')
+      .select('id, judul, status')
+      .order('id', { ascending: false });
+
+    if (error) {
+      console.error('Gagal ambil data:', error);
+      return;
+    }
+
+    container.innerHTML = '';
+
+    data.forEach(item => {
+      const isPublished = item.status === 'publish';
+
+      const li = document.createElement('li');
+      li.className = 'course-item';
+      li.innerHTML = `
+        <div class="section-item-link lesson">
+          <span class="item-name">${item.judul || 'Tanpa Judul'}</span>
+          <span class="item-name" id="status-text-${item.id}">Status saat ini: <strong>${item.status}</strong></span>
+          <div class="course-item-meta">
+            <button 
+              class="item-meta btn" 
+              id="btn-publish-${item.id}"
+              style="display: ${isPublished ? 'none' : 'inline-block'};"
+              onclick="togglePublish('${item.id}', 'publish')">
+              Publish
+            </button>
+            <button 
+              class="item-meta btn" 
+              id="btn-unpublish-${item.id}"
+              style="display: ${isPublished ? 'inline-block' : 'none'};"
+              onclick="togglePublish('${item.id}', 'unpublish')">
+              Un-publish
+            </button>
+          </div>
+        </div>
+      `;
+      container.appendChild(li);
+    });
+  }
+
+  async function togglePublish(id, newStatus) {
+    console.log('Proses update status:', { id, newStatus });
+
+    const { error } = await supabaseClient
+      .from('tour2025')
+      .update({ status: newStatus })
+      .eq('id', id);
+
+    if (error) {
+      console.error(`Gagal update status ID ${id}:`, error);
+      alert('Gagal mengubah status.');
+    } else {
+      console.log(`Status ID ${id} berhasil diubah ke: ${newStatus}`);
+
+      // Toggle tombol tampil
+      document.getElementById(`btn-publish-${id}`).style.display = newStatus === 'publish' ? 'none' : 'inline-block';
+      document.getElementById(`btn-unpublish-${id}`).style.display = newStatus === 'publish' ? 'inline-block' : 'none';
+
+      // Perbarui teks status
+      const statusLabel = document.getElementById(`status-text-${id}`);
+      if (statusLabel) {
+        statusLabel.innerHTML = `Status saat ini: <strong>${newStatus}</strong>`;
+      }
+    }
+  }
+        // ===================== LOAD SEMUA SAAT DOKUMEN SIAP ===================== //
+        document.addEventListener('DOMContentLoaded', () => {
+            loadData();
+            loadSettingContent();
+        });
+        </script>
+
+    <script>
+        // Fungsi untuk memuat file HTML ke dalam elemen
+        function loadHTML(elementId, filePath) {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', filePath, true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    document.getElementById(elementId).innerHTML = xhr.responseText;
+
+                    // Jalankan highlight hanya setelah navbar dimuat
+                    if (filePath.includes('navbar.html')) {
+                        highlightActiveLink();
+                    }
+                }
+            };
+            xhr.send();
+        }
+
+        // Fungsi untuk menandai link navbar yang aktif
+        function highlightActiveLink() {
+            const pageCode = document.body.getAttribute('data-page');
+            if (!pageCode) return;
+
+            const navLinks = document.querySelectorAll('#nav a');
+
+            navLinks.forEach(link => {
+                const target = link.getAttribute('data-target');
+                if (target === pageCode) {
+                    link.classList.add('active');
+                    const parentItem = link.closest('.nav-item');
+                    if (parentItem) parentItem.classList.add('active-parent');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        }
+
+        // Load awal
+        loadHTML('navbar-container', 'menu/navbar.html');
+        loadHTML('toolbar-container', 'menu/toolbar.html');
+        loadHTML('footer-container', 'menu/footer.html');
+
+        // Fungsi memuat konten ke dalam #content-container
+        function loadContent(filePath) {
+            loadHTML('content-container', filePath);
+        }
+    </script>
+
+
+
+
+</body>
+
+</html>
